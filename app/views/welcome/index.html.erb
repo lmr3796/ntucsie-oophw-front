@@ -1,0 +1,7 @@
+<h1>Welcome#index</h1>
+<p>Please submit your git repository</p>
+<%= form_tag({:controller => "path", :action => "git"}, :method => :get) do %>
+  <%= text_field_tag :path %>
+  <%= submit_tag "Submit"%>
+<% end %>
+<h6>Find me in app/views/welcome/index.html.erb</h6>
