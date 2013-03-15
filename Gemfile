@@ -38,6 +38,8 @@ gem 'thin'
 # To use debugger
 # gem 'debugger'
 
+gem 'therubyracer'
+
 gem 'omniauth'
 gem 'omniauth-openid'
 gem 'ruby-openid-apps-discovery'
