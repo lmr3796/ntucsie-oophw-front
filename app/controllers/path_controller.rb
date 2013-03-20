@@ -2,8 +2,8 @@ class PathController < ApplicationController
   before_filter :check
   def check
     if not session[:email]
-      cookies[:mycallback] = "http://#{request.host}:#{request.port}#{request.fullpath}"
-      redirect_to '/auth/google' 
+      cookies[:mycallback] = "https://#{request.host}#{request.fullpath}"
+      redirect_to '/auth/google_oauth2' 
       return 
     end
     if not /@csie\.ntu\.edu\.tw/ =~ session[:email]

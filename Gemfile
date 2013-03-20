@@ -41,5 +41,4 @@ gem 'thin'
 gem 'therubyracer'
 
 gem 'omniauth'
-gem 'omniauth-openid'
-gem 'ruby-openid-apps-discovery'
+gem 'omniauth-google-oauth2'

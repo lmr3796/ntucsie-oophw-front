@@ -5,4 +5,4 @@ require File.expand_path('../application', __FILE__)
 NtucsieOopHw::Application.initialize!
 
 # Load certificate bundler 
-OpenID.fetcher.ca_file = "#{Rails.root}/config/ca-bundle.crt"
+#OpenID.fetcher.ca_file = "/opt/nginx/conf/server.crt"
