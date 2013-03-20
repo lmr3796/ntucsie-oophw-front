@@ -14,19 +14,21 @@ class PathController < ApplicationController
   end
 
   def git
-    @path = params[:path]
-    #render :text => "You're: " + @id + "<br/>You submitted \"" + @path + "\""
-    dest = "/tmp2/r01944027/#{@id}"
-    msg = `mkdir -p #{dest}`
+    @repo = params[:path]
+    #render :text => "You're: " + @id + "<br/>You submitted \"" + @repo + "\""
+    dest = "/tmp2/oophw/#{@id}"
+    @msg = `mkdir -p #{dest}`
     if not $?.success?
-        render :text => "You're #{@id}, mkdir has failed, message is:<br/>#{msg}"
+        render :text => "You're #{@id}, mkdir has failed, message is:<br/>#{@msg}", :status => 500
         return
     end
-    msg = `(cd #{dest}; git clone #{@path})`
+    @commit = `(cd #{dest} && git clone #{@repo} 2>&1 > /dev/null&& cd #{@repo.gsub(/\.git$/, "")[/\/.*$/][1..-1]} && git log -1)`
     if not $?.success?
-        render :text => "You're #{@id}, git clone failed, message is:<br/>#{msg}"
+        render :text => "You're #{@id}, git clone failed", :status => 400
         return
     end
-    render :text => "You're #{@id}<br/>git clone succeed<br/>Go to #{request.host}:#{dest} and have a look!"
+    render :text => "Hi #{@id}, git clone succeeded.<br/>"+
+                    "Latest commit:"+
+                    "<pre>#{@commit.gsub("<", "&lt;").gsub(">", "&gt;")}</pre>"
   end
 end
