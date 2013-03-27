@@ -30,7 +30,15 @@
      <%= text_field_tag :path, nil, :class=> 'input-xlarge', :placeholder => 'git://github.com/octocat/Hello-World.git'  %>
     <%= submit_tag 'Submit', :class => 'btn btn-primary' %>
   <% end %>
-  <div id="dialog-success" class="modal hide fade">
+  <div id="dialog-loading" class="modal fade">
+    <div class="modal-body">
+      <center>
+        <%= image_tag "ajax-loader.gif" %>
+        <span>Please wait ...</span>
+      </center>
+    </div>
+  </div>
+  <div id="dialog-success" class="modal fade">
     <div class="modal-header">
       <h3><span class="dialog-message"></span></h3>
     </div>
@@ -58,7 +66,9 @@
   </div>
   <script type="text/javascript">
     $(function() {
+      $('#dialog-loading').modal({ backdrop: 'static', show: false });
       $('#git-submit').submit(function() {
+        $('#dialog-loading').modal('show');
         $.ajax({
           url: $(this).attr('action'),
           data: $(this).serialize()
@@ -71,12 +81,14 @@
               'Author: ' + res.info.author.name + ' <' + res.info.author.email + '>\n' +
               'Date: ' + res.info.authored_date
           );
+          $('#dialog-loading').modal('hide');
           $dialog.modal('show');
         }).fail(function(jqxhr, textStatus, errorThrown) {
           var $dialog = $('#dialog-failed');
           var res = JSON.parse(jqxhr.responseText);
           $('.dialog-message', $dialog).text(res.message);
           $('.dialog-error', $dialog).text(res.error);
+          $('#dialog-loading').modal('hide');
           $dialog.modal('show');
         });
         return false;
