@@ -30,7 +30,7 @@ class PathController < ApplicationController
     git = Grit::Git.new(dest)
     repo_dir = File.join(dest, (version + 1).to_s)
     info = git.clone({ :timeout => 60, :process_info => true }, @repo, repo_dir)
-    if info[0]
+    if info[0] != 0
       render :json => { :message => 'Git clone failed.', :error => info[2] }, :status => 400 
       return
     end
@@ -39,10 +39,10 @@ class PathController < ApplicationController
     begin
       repo = Grit::Repo.new(repo_dir)
     rescue Grit::NoSuchPathError => e
-      render :json => { :message => 'Git clone failed.' }, :status => 400
+      render :json => { :message => 'Git clone failed.', :error => e.message }, :status => 400
       return
     end
     head = repo.commits.first
-    render :json => { :message => 'Git clone succeeded.', :info => head }
+    render :json => { :message => 'Git clone succeeded.', :repo => @repo, :info => head }
   end
 end
