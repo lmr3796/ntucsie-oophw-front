@@ -24,7 +24,7 @@
 <% else %>
   <section>
     <p>Hi, <span class="text-info"><%= @email %></span>.</p>
-    <p>Please submit your git repository.</p>
+    <p>Please submit your git repository for <strong>homework <%= @homework_number %></strong>.</p>
   </section>
   <%= form_tag({ :controller => 'path', :action => 'git'}, :method => :get, :id => 'git-submit', :class => 'form-inline') do %>
      <%= text_field_tag :path, nil, :class=> 'input-xlarge', :placeholder => 'git://github.com/octocat/Hello-World.git'  %>

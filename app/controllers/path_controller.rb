@@ -8,7 +8,7 @@ class PathController < ApplicationController
     @repo = params[:path]
 
     # create directory & get the newest version
-    dest = "/tmp2/oophw/#{@id}"
+    dest = "/tmp2/oophw#{@homework_number}/#{@id}"
     begin
       version = 0
       if File.directory?(dest)
