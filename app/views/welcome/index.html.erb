@@ -74,6 +74,9 @@
           url: $(this).attr('action'),
           data: $(this).serialize()
         }).done(function(res) {
+          $('#dialog-loading').modal('hide');
+          $('#git-submit :input:text').val('');
+
           var $dialog = $('#dialog-success');
           $('.dialog-message', $dialog).text(res.message);
           $('.dialog-version', $dialog).text(res.version);
@@ -83,14 +86,14 @@
               'Author: ' + res.info.author.name + ' <' + res.info.author.email + '>\n' +
               'Date: ' + res.info.authored_date
           );
-          $('#dialog-loading').modal('hide');
           $dialog.modal('show');
         }).fail(function(jqxhr, textStatus, errorThrown) {
+          $('#dialog-loading').modal('hide');
+
           var $dialog = $('#dialog-failed');
           var res = JSON.parse(jqxhr.responseText);
           $('.dialog-message', $dialog).text(res.message);
           $('.dialog-error', $dialog).text(res.error);
-          $('#dialog-loading').modal('hide');
           $dialog.modal('show');
         });
         return false;
