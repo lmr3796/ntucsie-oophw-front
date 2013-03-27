@@ -13,13 +13,11 @@ class WelcomeController < ApplicationController
         n = f.to_i
         if n.to_s == f
           repo_dir = File.join(dest, f)
-          repo_uri = 'git://github.com/telgniw/some-repo.git'
           repo = Grit::Repo.new(repo_dir) rescue NoSuchPathError
-          head = repo.commits.first
           @submissions.push({
             :version    => n,
-            :repo       => repo_uri,
-            :info       => head
+            :repo       => `cd #{repo_dir} && git remote show -n origin | awk 'NR==2 {print $NF}'`,
+            :info       => repo.commits.first
           })
         end
       end
