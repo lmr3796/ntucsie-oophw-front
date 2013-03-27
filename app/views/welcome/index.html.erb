@@ -14,14 +14,14 @@
   <h2>Homework Submission System</h2>
 </header>
 <section>
-<% if not @email or not /@csie\.ntu\.edu\.tw/ =~ @email %>
+  <% if not @email or not /@csie\.ntu\.edu\.tw/ =~ @email %>
   <section>
     <% if @email %>
-      <p>You are logged-in as <span class="text-info"><%= @email %></span>.</p>
+    <p>You are logged-in as <span class="text-info"><%= @email %></span>.</p>
     <% end %>
     <p>Please <a href="/auth/google_oauth2">login</a> using your NTU-CSIE account.</p>
   </section>
-<% else %>
+  <% else %>
   <section>
     <p>Hi, <span class="text-info"><%= @email %></span>.</p>
     <p>Please submit your git repository for <strong>homework <%= @homework_number %></strong>.</p>
@@ -30,6 +30,31 @@
      <%= text_field_tag :path, nil, :class=> 'input-xlarge', :placeholder => 'git://github.com/octocat/Hello-World.git'  %>
     <%= submit_tag 'Submit', :class => 'btn btn-primary' %>
   <% end %>
+  <section>
+    <h4>Submission History</h4>
+    <% if @submissions.empty? %>
+    <p>No submission history available.</p>
+    <% else %>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Git Repo</th>
+          <th>Commit</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @submissions.each do |submission| %>
+        <tr>
+          <td><%= submission[:version] %></td>
+          <td><%= submission[:repo] %></td>
+          <td><%= submission[:info].id %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <% end %>
+  </section>
   <div id="dialog-loading" class="modal fade">
     <div class="modal-body">
       <center>
@@ -100,5 +125,5 @@
       });
     });
   </script>
-<% end %>
+  <% end %>
 </section>
