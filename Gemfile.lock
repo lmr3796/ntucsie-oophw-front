@@ -38,12 +38,17 @@ GEM
       execjs
     coffee-script-source (1.6.1)
     daemons (1.1.9)
+    diff-lcs (1.2.1)
     erubis (2.7.0)
     eventmachine (1.0.3)
     execjs (1.4.0)
       multi_json (~> 1.0)
     faraday (0.8.6)
       multipart-post (~> 1.1)
+    grit (2.5.0)
+      diff-lcs (~> 1.1)
+      mime-types (~> 1.15)
+      posix-spawn (~> 0.3.6)
     hashie (1.2.0)
     hike (1.2.1)
     httpauth (0.2.0)
@@ -79,6 +84,7 @@ GEM
       oauth2 (~> 0.8.0)
       omniauth (~> 1.0)
     polyglot (0.3.3)
+    posix-spawn (0.3.6)
     rack (1.4.5)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -138,6 +144,7 @@ PLATFORMS
 
 DEPENDENCIES
   coffee-rails (~> 3.2.1)
+  grit
   jquery-rails
   omniauth
   omniauth-google-oauth2

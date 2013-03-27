@@ -42,3 +42,5 @@ gem 'therubyracer'
 
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
+
+gem 'grit'

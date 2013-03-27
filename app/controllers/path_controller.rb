@@ -1,25 +1,48 @@
+require 'grit'
+
 class PathController < ApplicationController
   def git
+    @email = session[:email]
+    @id = @email[0...@email.index('@')]
+
     @repo = params[:path]
-    #render :text => "You're: " + @id + "<br/>You submitted \"" + @repo + "\""
+
+    # create directory & get the newest version
     dest = "/tmp2/oophw/#{@id}"
-    @msg = `mkdir -p #{dest}`
-    if not $?.success?
-        render :text => "Hi #{@id}, mkdir has failed, message is:<br/>#{@msg}", :status => 500
-        return
+    begin
+      version = 0
+      if File.directory?(dest)
+        Dir.foreach(dest) do |f|
+          n = f.to_i
+          if n.to_s == f
+            version = n if n > version
+          end
+        end
+      else
+        Dir.mkdir(dest, 0755)
+      end
+    rescue SystemCallError => e
+      render :json => { :message => 'Failed to create directory.', :error => e.message }, :status => 500
+      return
     end
-    @msg = `(cd #{dest} && git clone #{@repo} 2>&1 > /dev/null)`
-    if not $?.success?
-        render :text => "Hi #{@id}, git clone failed", :status => 400
-        return
+    
+    # clone repo
+    git = Grit::Git.new(dest)
+    repo_dir = File.join(dest, (version + 1).to_s)
+    info = git.clone({ :timeout => 60, :process_info => true }, @repo, repo_dir)
+    if info[0]
+      render :json => { :message => 'Git clone failed.', :error => info[2] }, :status => 400 
+      return
     end
-    @commit = `(cd #{dest}/#{@repo.gsub(/\.git$/, "")[/\/.*$/][1..-1]} && git log -1)`
-    if not $?.success?
-        render :text => "Hi #{@id}, error fetching git repository info", :status => 500
-        return
+
+    # return repo info
+    begin
+      repo = Grit::Repo.new(repo_dir)
+    rescue Grit::NoSuchPathError => e
+      render :json => { :message => 'Git clone failed.' }, :status => 400
+      return
     end
-    render :text => "Hi #{@id}, git clone succeeded.<br/>"+
-                    "Latest commit:"+
-                    "<pre>#{@commit.gsub("<", "&lt;").gsub(">", "&gt;")}</pre>"
+    head = repo.commits.first
+    render :json => { :message => 'Git clone succeeded.', :info => head }
   end
 end

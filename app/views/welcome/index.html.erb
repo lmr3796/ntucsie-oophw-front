@@ -1,33 +1,55 @@
-<h1>OOP Homework Submitting System</h1>
-<h3>Please submit your git repository.</h3>
-<h5>
-We will clone it and take it as your submission.<br/>
-Note that you only have to submit once to tell us your repository path.<br/>
-We'll pull your latest commit right after deadline.
-</h5>
-<% if @email %>
-  <div>You're logged-in as <%= @email %>.</div>
-<% end %>
-<%= form_tag({:controller => "path", :action => "git"}, :method => :get, :id => "git-submit") do %>
-  <%= text_field_tag :path %>
-  <%= submit_tag "Submit"%>
-<% end %>
-<script type="text/javascript">
-  $(function() {
-    $('#git-submit').submit(function() {
-      var $message = $('<div></div>').text('Uploading ...');
-      $(this).after($message);
-      $.ajax({
-        url: $(this).attr('action'),
-        data: $(this).serialize(),
-      }).done(function(res) {
-        $message.html(res);
-      }).fail(function(jqxhr) {
-        $message.html(jqxhr.responseText);
+<header>
+  <h1>Object Oriented Software Design (2013 Spring)</h1>
+  <h2>Homework Submission System</h2>
+</header>
+<% if not @email or not /@csie\.ntu\.edu\.tw/ =~ @email %>
+  <section>
+    <% if @email %>
+      <p>You are logged-in as <span class="email"><%= @email %></span>.</p>
+    <% end %>
+    <p>Please <a href="/auth/google_oauth2">login</a> using your NTU-CSIE account.</p>
+  </section>
+<% else %>
+  <section>
+    <p>Hi, <span class="email"><%= @email %></span>.</p>
+    <p>Please submit your git repository.</p>
+  </section>
+  <%= form_tag({ :controller => 'path', :action => 'git'}, :method => :get, :id => 'git-submit') do %>
+    <%= label_tag 'Git Repository' %>
+    <%= text_field_tag :path, nil, :placeholder => 'git://github.com/git/git.git'  %>
+    <%= submit_tag 'Submit' %>
+  <% end %>
+  <div id="dialog-success">
+    <p><span class="dialog-message"></span></p>
+    <p>Commit: <span class="dialog-commit-id"></span></p>
+    <p>Author: <span class="dialog-author-name"></span> &lt;<span class="dialog-author-email"></span>&gt;</p>
+    <p>Date: <span class="dialog-author-date"></span></p>
+  </div>
+  <div id="dialog-failed">
+    <p><span class="dialog-message"></span></p>
+    <p><span class="dialog-error"></span></p>
+  </div>
+  <script type="text/javascript">
+    $(function() {
+      $('#git-submit').submit(function() {
+        $.ajax({
+          url: $(this).attr('action'),
+          data: $(this).serialize()
+        }).done(function(res) {
+          var $dialog = $('#dialog-success');
+          $('.dialog-message', $dialog).text(res.message);
+          $('.dialog-commit-id', $dialog).text(res.info.id);
+          $('.dialog-author-name', $dialog).text(res.info.author.name);
+          $('.dialog-author-email', $dialog).text(res.info.author.email);
+          $('.dialog-author-date', $dialog).text(res.info.authored_date);
+        }).fail(function(jqxhr, textStatus, errorThrown) {
+          var $dialog = $('#dialog-failed');
+          var res = JSON.parse(jqxhr.responseText);
+          $('.dialog-message', $dialog).text(res.message);
+          $('.dialog-error', $dialog).text(res.error);
+        });
+        return false;
       });
-      return false;
     });
-  });
-</script>
-<h6>Welcome#index<br/>
-Find me in app/views/welcome/index.html.erb</h6>
+  </script>
+<% end %>
