@@ -5,9 +5,29 @@ We will clone it and take it as your submission.<br/>
 Note that you only have to submit once to tell us your repository path.<br/>
 We'll pull your latest commit right after deadline.
 </h5>
-<%= form_tag({:controller => "path", :action => "git"}, :method => :get) do %>
+<% if @email %>
+  <div>You're logged-in as <%= @email %>.</div>
+<% end %>
+<%= form_tag({:controller => "path", :action => "git"}, :method => :get, :id => "git-submit") do %>
   <%= text_field_tag :path %>
   <%= submit_tag "Submit"%>
 <% end %>
+<script type="text/javascript">
+  $(function() {
+    $('#git-submit').submit(function() {
+      var $message = $('<div></div>').text('Uploading ...');
+      $(this).after($message);
+      $.ajax({
+        url: $(this).attr('action'),
+        data: $(this).serialize(),
+      }).done(function(res) {
+        $message.html(res);
+      }).fail(function(jqxhr) {
+        $message.html(jqxhr.responseText);
+      });
+      return false;
+    });
+  });
+</script>
 <h6>Welcome#index<br/>
 Find me in app/views/welcome/index.html.erb</h6>

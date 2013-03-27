@@ -1,18 +1,4 @@
 class PathController < ApplicationController
-  before_filter :check
-  def check
-    if not session[:email]
-      cookies[:mycallback] = "https://#{request.host}#{request.fullpath}"
-      redirect_to '/auth/google_oauth2' 
-      return 
-    end
-    if not /@csie\.ntu\.edu\.tw/ =~ session[:email]
-      render :text => session[:email] + " is invalid"
-    end
-    @email = session[:email]
-    @id = @email[0...@email.index('@')]
-  end
-
   def git
     @repo = params[:path]
     #render :text => "You're: " + @id + "<br/>You submitted \"" + @repo + "\""
