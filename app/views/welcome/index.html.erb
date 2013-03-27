@@ -43,6 +43,7 @@
       <h3><span class="dialog-message"></span></h3>
     </div>
     <div class="modal-body">
+      <p>This is your <span class="dialog-version"></span> submission for homework <%= @homework_number %>.</p>
       <p>Git repository submitted:</p>
       <pre class="dialog-git-repo text-info"></pre>
       <p>Latest commit:</p>
@@ -75,6 +76,7 @@
         }).done(function(res) {
           var $dialog = $('#dialog-success');
           $('.dialog-message', $dialog).text(res.message);
+          $('.dialog-version', $dialog).text(res.version);
           $('.dialog-git-repo', $dialog).text(res.repo);
           $('.dialog-commit-details', $dialog).text(
               'Commit: ' + res.info.id + '\n' +
