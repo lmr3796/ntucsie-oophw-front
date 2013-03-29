@@ -9,6 +9,7 @@ class WelcomeController < ApplicationController
       @submissions = []
 
       dest = "/tmp2/oophw#{@homework_number}/#{@id}"
+      FileUtils.mkdir_p dest unless File.directory?(dest)
       Dir.foreach(dest) do |f|
         n = f.to_i
         if n.to_s == f

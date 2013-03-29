@@ -18,9 +18,9 @@
   <% if not @email or not /@csie\.ntu\.edu\.tw/ =~ @email %>
   <section>
     <% if @email %>
-    <p>You are logged-in as <span class="text-info"><%= @email %></span>.</p>
+    <p>You are logged-in with <span class="text-info"><%= @email %></span>.</p>
     <% end %>
-    <p>Please <a href="/auth/google_oauth2">login</a> using your NTU-CSIE account.</p>
+    <p>Please <a href="/auth/google_oauth2">login</a> with your NTU-CSIE account.</p>
   </section>
   <% else %>
   <section>
