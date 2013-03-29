@@ -98,6 +98,16 @@
   <script type="text/javascript">
     $(function() {
       $('#dialog-loading').modal({ backdrop: 'static', show: false });
+      $('#dialog-success')
+        .modal({ show: false })
+        .on('hidden', function() {
+          window.location = window.location;
+        });
+      $('#dialog-failed')
+        .modal({ show: false })
+        .on('hidden', function() {
+          window.location = window.location;
+        });
       $('#git-submit').submit(function() {
         $('#dialog-loading').modal('show');
         $.ajax({
