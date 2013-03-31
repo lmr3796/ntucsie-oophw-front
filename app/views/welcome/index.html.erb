@@ -90,11 +90,13 @@
       <button class="btn" data-dismiss="modal">Close</button>
     </div>
   </div>
+  <% end %>
   <script type="text/javascript">
     $(function() {
       if($.support.boxModel) {
         $('#alert-old-browser').hide();
       }
+      <% if @email %>
       $('#dialog-loading').modal({ backdrop: 'static', show: false });
       $('#dialog-success')
         .modal({ show: false })
@@ -136,7 +138,7 @@
         });
         return false;
       });
+      <% end %>
     });
   </script>
-  <% end %>
 </section>
