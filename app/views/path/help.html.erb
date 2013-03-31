@@ -1,0 +1,69 @@
+<header>
+  <h1>Object Oriented Software Design (2013 Spring)</h1>
+  <h2>Homework Submission Guildline</h2>
+</header>
+<section>
+  <section id="get-started">
+    <h4>Get Started with Git</h4>
+    <p>Git is a distributed version control system, initially designed by Linus Trovalds for Linux kernel development.</p>
+    <ul>
+      <li>
+        <h5>Setup Git</h5>
+        <p>See <a href="http://help.github.com/articles/set-up-git" target="_blank">the tutorial on GitHub</a>.</p>
+      </li>
+      <li>
+        <h5>Get an Account</h5>
+        <p><a href="http://github.com/" target="_blank">GitHub</a> might be the most popular choice for hosting git repositories, but you can only have up to 5 private repositories for free with <a href="http://github.com/edu" target="_blank">educational account</a>.</p>
+        <p>You can get unlimited free private repositories on <a href="http://bitbucket.org" target="_blank">Bitbucket</a> with <a href="http://www.atlassian.com/software/views/bitbucket-academic-license.jsp" target="_blank">educational account</a>.</p>
+        <div class="alert alert-info">
+          <div>You must use <a href="http://bitbucket.org" target="_blank">Bitbucket</a> for homework submission if you want to make your repository private, so that you can share your repositories with TAs' account.</div>
+        </div>
+      </li>
+      <li>
+        <h5>Maintain Your Code with Git</h5>
+        <p>If you have never used Git before, you can <a href="http://try.github.com/" target="_blank">try it here</a>. To learn more about git, you can refer to the book <a href="http://git-scm.com/book" target="_blank">Pro Git</a> written by Scott Chacon.</p>
+      </li>
+    </ul>
+  </section>
+  <section id="submit-homework">
+    <h4>Submit Your Homework</h4>
+    <ul>
+      <li>
+        <h5>Exclude Unwanted Files</h5>
+        <p>As mentioned in the homework, you might want to exclude some files (e.g. class files) from your Git repository. The easiest way to achieve this is to create a file named <code>.gitignore</code> in the root directory of your Git repository.</p>
+        <pre><span class="muted"># Your directory that contains your Git repository may look like this.</span>
+$ ls -l
+<span class="text-success">-rw-r--r--  1 oopta  staff  128  3 31 21:47 Makefile
+drwxr-xr-x  5 oopta  staff  170  3 31 21:46 bin
+drwxr-xr-x  5 oopta  staff  170  3 31 20:01 src</span>
+
+<span class="muted"># Your ".gitignore" may look like this, so that you will not accidentally add the directory "bin/" to your Git repository.</span>
+$ cat .gitignore
+<span class="text-success">bin/</span>
+
+<span class="muted"># After adding ".gitignore", your repository status may look like this.</span>
+$ git status
+<span class="text-success"># On branch master
+# Untracked files:
+#   (use "git add <file>..." to include in what will be committed)
+#
+#       Makefile
+#       src/
+# nothing added to commit but untracked files present (use "git add" to track)</span></pre>
+      </li>
+    </ul>
+  </section>
+  <section id="other-questions">
+    <h4>Some Other Questions</h4>
+    <ul>
+      <li>
+        <h5>Why Version Control?</h5>
+        <p>There may still be benefits using version control even if you are working alone. See <a href="http://stackoverflow.com/questions/1408450" target="_blank">StackOverflow: Why should I use version control?</a>.</p>
+      </li>
+      <li>
+        <h5>How is Git different from SVN?</h5>
+        <p>The most significant difference is that Git is decentralized, while SVN is not. See <a href="http://stackoverflow.com/questions/871" target="_blank">StackOverflow: Why is Git better than Subversion?</a>.</p>
+      </li>
+    </ul>
+  </section>
+</section>

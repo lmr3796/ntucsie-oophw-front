@@ -46,4 +46,7 @@ class PathController < ApplicationController
     head = repo.commits.first
     render :json => { :message => 'Git clone succeeded.', :version => version.ordinalize, :repo => @repo, :info => head }
   end
+
+  def help
+  end
 end

@@ -12,3 +12,10 @@
  *= require_tree .
  *= require flatstrap.min
  */
+body {
+  margin: 0 auto;
+  width: 80%;
+}
+body>header {
+  margin: 2em 0;
+}

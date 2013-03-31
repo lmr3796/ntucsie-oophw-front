@@ -18,7 +18,7 @@ a,a:visited{text-decoration:underline;}a[href]:after{content:"(" attr(href) ")";
 abbr[title]:after{content:"(" attr(title) ")";}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:"";}
 pre,blockquote{border:1px solid #999;page-break-inside:avoid;}thead{display:table-header-group;}
 tr,img{page-break-inside:avoid;}img{max-width:100%!important;}@page{margin:.5cm;}
-p,h2,h3{orphans:3;widows:3;}h2,h3{page-break-after:avoid;}}body{margin:0;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:14px;line-height:20px;color:#333;background-color:#fff;}
+p,h2,h3{orphans:3;widows:3;}h2,h3{page-break-after:avoid;}}body{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:14px;line-height:20px;color:#333;background-color:#fff;}
 a{color:#08c;text-decoration:none;}a:hover,a:focus{color:#005580;text-decoration:underline;}
 .img-polaroid{padding:4px;background-color:#fff;border:1px solid #ccc;border:1px solid rgba(0,0,0,0.2);}
 .row{margin-left:-20px;*zoom:1;}.row:before,.row:after{display:table;content:"";line-height:0;}
