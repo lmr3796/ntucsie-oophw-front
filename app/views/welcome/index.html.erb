@@ -30,10 +30,6 @@
     <%= text_field_tag :path, nil, :class=> 'input-xlarge', :placeholder => 'git://github.com/octocat/Hello-World.git'  %>
     <%= submit_tag 'Submit', :class => 'btn btn-primary' %>
   <% end %>
-  <section>
-    <h4>Submission Guildline</h4>
-    <p>Here <a href="https://oophw.csie.org/help">https://oophw.csie.org/help</a>.</p>
-  <section>
     <h4>Submission History</h4>
     <% if @submissions.empty? %>
     <p>No submission history available.</p>
@@ -94,54 +90,57 @@
     </div>
   </div>
   <% end %>
-  <script type="text/javascript">
-    $(function() {
-      if($.support.boxModel) {
-        $('#alert-old-browser').hide();
-      }
-      <% if @email %>
-      $('#dialog-loading').modal({ backdrop: 'static', show: false });
-      $('#dialog-success')
-        .modal({ show: false })
-        .on('hidden', function() {
-          window.location = window.location;
-        });
-      $('#dialog-failed')
-        .modal({ show: false })
-        .on('hidden', function() {
-          window.location = window.location;
-        });
-      $('#git-submit').submit(function() {
-        $('#dialog-loading').modal('show');
-        $.ajax({
-          url: $(this).attr('action'),
-          data: $(this).serialize()
-        }).done(function(res) {
-          $('#dialog-loading').modal('hide');
-          $('#git-submit :input:text').val('');
-
-          var $dialog = $('#dialog-success');
-          $('.dialog-message', $dialog).text(res.message);
-          $('.dialog-version', $dialog).text(res.version);
-          $('.dialog-git-repo', $dialog).text(res.repo);
-          $('.dialog-commit-details', $dialog).text(
-              'Commit: ' + res.info.id + '\n' +
-              'Author: ' + res.info.author.name + ' <' + res.info.author.email + '>\n' +
-              'Date: ' + res.info.authored_date
-          );
-          $dialog.modal('show');
-        }).fail(function(jqxhr, textStatus, errorThrown) {
-          $('#dialog-loading').modal('hide');
-
-          var $dialog = $('#dialog-failed');
-          var res = JSON.parse(jqxhr.responseText);
-          $('.dialog-message', $dialog).text(res.message);
-          $('.dialog-error', $dialog).text(res.error);
-          $dialog.modal('show');
-        });
-        return false;
-      });
-      <% end %>
-    });
-  </script>
 </section>
+<footer>
+  <p class="muted"><small>Submission Guildline: <a href="https://oophw.csie.org/help">https://oophw.csie.org/help</a></small></p>
+</footer>
+<script type="text/javascript">
+  $(function() {
+    if($.support.boxModel) {
+      $('#alert-old-browser').hide();
+    }
+    <% if @email %>
+    $('#dialog-loading').modal({ backdrop: 'static', show: false });
+    $('#dialog-success')
+      .modal({ show: false })
+      .on('hidden', function() {
+        window.location = window.location;
+      });
+    $('#dialog-failed')
+      .modal({ show: false })
+      .on('hidden', function() {
+        window.location = window.location;
+      });
+    $('#git-submit').submit(function() {
+      $('#dialog-loading').modal('show');
+      $.ajax({
+        url: $(this).attr('action'),
+        data: $(this).serialize()
+      }).done(function(res) {
+        $('#dialog-loading').modal('hide');
+        $('#git-submit :input:text').val('');
+
+        var $dialog = $('#dialog-success');
+        $('.dialog-message', $dialog).text(res.message);
+        $('.dialog-version', $dialog).text(res.version);
+        $('.dialog-git-repo', $dialog).text(res.repo);
+        $('.dialog-commit-details', $dialog).text(
+            'Commit: ' + res.info.id + '\n' +
+            'Author: ' + res.info.author.name + ' <' + res.info.author.email + '>\n' +
+            'Date: ' + res.info.authored_date
+        );
+        $dialog.modal('show');
+      }).fail(function(jqxhr, textStatus, errorThrown) {
+        $('#dialog-loading').modal('hide');
+
+        var $dialog = $('#dialog-failed');
+        var res = JSON.parse(jqxhr.responseText);
+        $('.dialog-message', $dialog).text(res.message);
+        $('.dialog-error', $dialog).text(res.error);
+        $dialog.modal('show');
+      });
+      return false;
+    });
+    <% end %>
+  });
+</script>

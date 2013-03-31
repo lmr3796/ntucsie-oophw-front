@@ -16,6 +16,6 @@ body {
   margin: 0 auto;
   width: 80%;
 }
-body>header {
+body>header, body>footer {
   margin: 2em 0;
 }
