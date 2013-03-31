@@ -15,6 +15,10 @@
   <h2>Homework Submission System</h2>
 </header>
 <section>
+  <div id="alert-old-browser" class="alert alert-warning">
+    <button class="close" data-dismiss="alert">x</button>
+    <div>You are using a browser that is not fully supported by our website. Please upgrade your browser or try other browsers such as <a href="http://www.google.com/chrome" target="_blank">Chrome</a> or <a href="http://www.mozilla.org/firefox" target="_blank">FireFox</a>.</div>
+  </div>
   <% if not @email or not /@csie\.ntu\.edu\.tw/ =~ @email %>
   <section>
     <% if @email %>
@@ -97,6 +101,9 @@
   </div>
   <script type="text/javascript">
     $(function() {
+      if($.support.boxModel) {
+        $('#alert-old-browser').hide();
+      }
       $('#dialog-loading').modal({ backdrop: 'static', show: false });
       $('#dialog-success')
         .modal({ show: false })
