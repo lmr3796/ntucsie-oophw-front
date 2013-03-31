@@ -5,7 +5,7 @@ class PathController < ApplicationController
     @email = session[:email]
     @id = @email[0...@email.index('@')]
 
-    @repo = params[:path]
+    @repo = params[:path].strip
 
     # create directory & get the newest version
     dest = "/tmp2/oophw#{@homework_number}/#{@id}"
