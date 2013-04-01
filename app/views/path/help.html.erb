@@ -3,6 +3,15 @@
   <h2>Homework Submission Guildline</h2>
 </header>
 <section>
+  <section id="requirements">
+    <h4>Requirements</h4>
+    <ul>
+      <li>You <strong>must</strong> push your project to a <strong>private repository</strong> hosted on <a href="http://bitbucket.org/" target="_blank">Bitbucket</a>.</li>
+      <li>Before submitting your repository url, you need to share your repository with <a href="http://bitbucket.org/ntu-csie-oop" target="_blank">ntu-csie-oop</a> so that the submission system will be able to access your repository.</li>
+      <li>You need to submit the <strong>git-clone</strong> url for your repository, which may look like <a href="http://bitbucket.org/ntu-csie-oop/hello-world" target="_blank">git@bitbucket.org:ntu-csie-oop/hello-world.git</a>, to the submission system before deadline. The submission system will take a snapshot of your repository at the time you submit the url.</li>
+      <li>You <strong>should not</strong> submit several different urls for one homework. You will get up to <strong>5-points deduction</strong> from your score if you submit more than one url to the submission system. It is okay to submit one url multiple times.</li>
+    </ul>
+  </section>
   <section id="get-started">
     <h4>Get Started with Git</h4>
     <p>Git is a distributed version control system, initially designed by Linus Trovalds for Linux kernel development.</p>
@@ -13,15 +22,12 @@
       </li>
       <li>
         <h5>Get an Account</h5>
-        <p><a href="http://github.com/" target="_blank">GitHub</a> might be the most popular choice for hosting git repositories, but you can only have up to 5 private repositories for free with <a href="http://github.com/edu" target="_blank">educational account</a>.</p>
         <p>You can get unlimited free private repositories on <a href="http://bitbucket.org" target="_blank">Bitbucket</a> with <a href="http://www.atlassian.com/software/views/bitbucket-academic-license.jsp" target="_blank">educational account</a>.</p>
-        <div class="alert alert-info">
-          <div>If you want to make your repository private, you must use <a href="http://bitbucket.org" target="_blank">Bitbucket</a> for homework submission, so that you can share your repositories with TAs' account.</div>
-        </div>
+        <p>The most popular choice for hosting Git repositories might be <a href="http://github.com/" target="_blank">GitHub</a>, but you can only have up to 5 private repositories for free with <a href="http://github.com/edu" target="_blank">educational account</a>.</p>
       </li>
       <li>
         <h5>Maintain Your Code with Git</h5>
-        <p>If you have never used Git before, you can <a href="http://try.github.com/" target="_blank">try it here</a>. To learn more about git, you can refer to the book <a href="http://git-scm.com/book" target="_blank">Pro Git</a> written by Scott Chacon.</p>
+        <p>If you have never used Git before, you can <a href="http://try.github.com/" target="_blank">try it here</a>. To learn more about Git, you can refer to the book <a href="http://git-scm.com/book" target="_blank">Pro Git</a> written by Scott Chacon.</p>
       </li>
     </ul>
   </section>
@@ -30,18 +36,18 @@
     <ul>
       <li>
         <h5>Exclude Unwanted Files</h5>
-        <p>As mentioned in the homework, you might want to exclude some files (e.g. class files) from your Git repository. The easiest way to achieve this is to create a file named <code>.gitignore</code> in the root directory of your Git repository.</p>
-        <pre><span class="muted"># Your homework directory may look like this.</span>
+        <p>As mentioned in the homework, you might want to exclude some files (e.g. class files) from your repository. The easiest way to achieve this goal is to create a file named <code>.gitignore</code> in the root directory of your repository.</p>
+        <pre><span class="muted"># Your project directory may look like this.</span>
 $ ls -l
 <span class="text-success">-rw-r--r--  1 oopta  staff  128  3 31 21:47 Makefile
 drwxr-xr-x  5 oopta  staff  170  3 31 21:46 bin
 drwxr-xr-x  5 oopta  staff  170  3 31 20:01 src</span>
 
-<span class="muted"># Your ".gitignore" may look like this, so that you will not accidentally add the directory "bin/" to your Git repository.</span>
+<span class="muted"># Your ".gitignore" may look like this, so that you will not accidentally add the directory "bin/" to your repository.</span>
 $ cat .gitignore
 <span class="text-success">bin/</span>
 
-<span class="muted"># After adding ".gitignore", your Git repository may look like this.</span>
+<span class="muted"># After adding ".gitignore", your repository may look like this.</span>
 $ git init
 <span class="text-success">Initialized empty Git repository in ~/OopHomework3/.git/</span>
 $ git status
@@ -59,7 +65,7 @@ $ git status
       </li>
       <li>
         <h5>Submit Private Repositories</h5>
-        <p>We only accept submission of private repositories hosting on <a href="http://bitbucket.org" target="_blank">Bitbucket</a>. Please go to <span class="text-info">Admin -&gt; Access Management</span> and grant read access to the user <span class="text-info">ntu-csie-oop</span> before submitting your git repository url.</p>
+        <p>Please go to <span class="text-info">Admin -&gt; Access Management</span> and grant read access to the user <a href="http://bitbucket.org/ntu-csie-oop" target="_blank">ntu-csie-oop</a> before submitting your Git repository url.</p>
       </li>
       <li>
         <h5>Where to Submit?</h5>
