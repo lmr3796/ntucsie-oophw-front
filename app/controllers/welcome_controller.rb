@@ -18,7 +18,8 @@ class WelcomeController < ApplicationController
           @submissions.push({
             :version    => n,
             :repo       => `cd #{repo_dir} && git remote show -n origin | awk 'NR==2 {print $NF}'`,
-            :info       => repo.commits.first
+            :info       => repo.commits.first,
+            :time       => File::Stat.new(repo_dir).ctime
           })
         end
       end

@@ -47,7 +47,14 @@
         <tr>
           <td><%= submission[:version] %></td>
           <td><%= submission[:repo] %></td>
-          <td><%= submission[:info].id %></td>
+          <td>
+          <% if submission[:info] %>
+            <%= submission[:info].id %>
+          <% else %>
+            Cloning ...
+          <% end %>
+          </td>
+          <td><%= submission[:time] %></td>
         </tr>
         <% end %>
       </tbody>
