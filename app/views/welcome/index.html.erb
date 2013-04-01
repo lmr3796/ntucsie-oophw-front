@@ -24,7 +24,7 @@
   </section>
   <div class="alert alert-info">
     <button class="close" data-dismiss="alert">x</button>
-    <div>If you're using <a href="http://bitbucket.org" target="_blank">Bitbucket</a>, please submit the <strong>HTTPS</strong> clone url.</div>
+    <div>If you're submitting private repositories hosting on <a href="http://bitbucket.org" target="_blank">Bitbucket</a>, please copy the <strong>SSH</strong> clone url.</div>
   </div>
   <%= form_tag({ :controller => 'path', :action => 'git'}, :method => :get, :id => 'git-submit', :class => 'form-inline') do %>
     <%= text_field_tag :path, nil, :class=> 'input-xlarge', :placeholder => 'git://github.com/octocat/Hello-World.git'  %>
