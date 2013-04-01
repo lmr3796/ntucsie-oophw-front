@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>OOP2013 Homework Submission System</title>
+  <title>OOP2013 HW Submission System</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= yield :stylesheet_links %>
   <%= javascript_include_tag "application" %>
@@ -9,6 +9,16 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <header>
+    <h1>Object Oriented Software Design (2013 Spring)</h1>
+    <h2><%= yield :header_subtitle %><h2>
+  </header>
 <%= yield %>
+  <footer>
+    <small class="muted">
+      <%= yield :footer_links %>
+      If you encounter any problems using the submission system, please email TAs as soon as possible. Thanks.
+    </small>
+  </footer>
 </body>
 </html>
