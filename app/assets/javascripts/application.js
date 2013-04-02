@@ -14,3 +14,4 @@
 //= require jquery_ujs
 //= require_tree .
 //= require flatstrap.min
+//= require bootstrap-lightbox.min

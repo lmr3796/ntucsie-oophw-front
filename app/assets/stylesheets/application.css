@@ -11,6 +11,7 @@
  *= require_self
  *= require_tree .
  *= require flatstrap.min
+ *= require bootstrap-lightbox.min
  */
 body {
   margin: 0 auto;

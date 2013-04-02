@@ -14,6 +14,20 @@
     <% end %>
     <p>Please <a href="/auth/google_oauth2">login</a> with your NTU-CSIE account. If you do not have an NTU-CSIE account, you can <a href="http://wslab.csie.ntu.edu.tw/22-2/" target="_blank">apply one here</a>.</p>
   </section>
+  <section>
+    <h4>Login to Multiple Google Accounts</h4>
+    <ul class="thumbnails">
+      <li class="thumbnail">
+        <a href="#how-to-login-lightbox" data-toggle="lightbox"><%= image_tag 'how-to-login-small.png' %></a>
+      </li>
+    </ul>
+    <div id="how-to-login-lightbox" class="lightbox hide fade">
+      <figure class="lightbox-content">
+        <%= image_tag 'how-to-login.png' %>
+        <figcaption><p>Select yourself at the upper-right corner, and select <span class="text-info">Add account</span> to add your NTU-CSIE account.</p></figcaption>
+      </figure>
+    </div>
+  </section>
   <% else %>
   <section>
     <p>Hi, <span class="text-info"><%= @email %></span>.</p>
@@ -27,6 +41,7 @@
     <%= text_field_tag :path, nil, :class=> 'input-xlarge', :placeholder => 'git://github.com/octocat/Hello-World.git'  %>
     <%= submit_tag 'Submit', :class => 'btn btn-primary' %>
   <% end %>
+  <section>
     <h4>Submission History</h4>
     <% if @submissions.empty? %>
     <p>No submission history available.</p>
@@ -61,7 +76,7 @@
   <div id="dialog-loading" class="modal hide fade">
     <div class="modal-body">
       <center>
-        <%= image_tag "ajax-loader.gif" %>
+        <%= image_tag 'ajax-loader.gif' %>
         <span>Please wait ...</span>
       </center>
     </div>
@@ -95,13 +110,13 @@
   </div>
   <% end %>
 </section>
-<% content_for :footer_links do %>Submission Guildline: <a href="https://oophw.csie.org/help">https://oophw.csie.org/help</a><br><% end %>
 <script type="text/javascript">
   $(function() {
     if($.support.boxModel) {
       $('#alert-old-browser').hide();
     }
     <% if @email %>
+    $('#how-to-login-lightbox').lightbox({ show: false });
     $('#dialog-loading').modal({ backdrop: 'static', show: false });
     $('#dialog-success')
       .modal({ show: false })
@@ -146,3 +161,4 @@
     <% end %>
   });
 </script>
+<% content_for :footer_links do %>Submission Guildline: <a href="https://oophw.csie.org/help">https://oophw.csie.org/help</a><br><% end %>
