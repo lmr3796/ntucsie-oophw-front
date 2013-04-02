@@ -14,15 +14,23 @@
     <h4>Login to Multiple Google Accounts</h4>
     <ul class="thumbnails">
       <li class="thumbnail">
-        <a href="#how-to-login-lightbox" data-toggle="lightbox"><%= image_tag 'how-to-login-small.png' %></a>
+        <a href="#add-account-lightbox" data-toggle="lightbox"><%= image_tag 'add-account-small.png' %></a>
+      </li>
+      <li class="thumbnail">
+        <a href="#switch-account-lightbox" data-toggle="lightbox"><%= image_tag 'switch-account-small.png' %></a>
       </li>
     </ul>
-    <div id="how-to-login-lightbox" class="lightbox hide fade">
+    <div id="add-account-lightbox" class="lightbox hide fade">
       <figure class="lightbox-content">
-        <%= image_tag 'how-to-login.png' %>
+        <%= image_tag 'add-account.png' %>
         <figcaption><p>Select yourself at the upper-right corner, and select <span class="text-info">Add account</span> to add your NTU-CSIE account.</p></figcaption>
       </figure>
     </div>
+    <div id="switch-account-lightbox" class="lightbox hide fade">
+      <figure class="lightbox-content">
+        <%= image_tag 'switch-account.png' %>
+        <figcaption><p>You still need to select your NTU-CSIE account if you have already added it to your google accounts.</p></figcaption>
+      </figure>
   </section>
   <% else %>
   <section>
@@ -109,7 +117,8 @@
 <% if @email %>
 <script type="text/javascript">
   $(function() {
-    $('#how-to-login-lightbox').lightbox({ show: false });
+    $('#add-account-lightbox').lightbox({ show: false });
+    $('#switch-account-lightbox').lightbox({ show: false });
     $('#dialog-loading').modal({ backdrop: 'static', show: false });
     $('#dialog-success')
       .modal({ show: false })

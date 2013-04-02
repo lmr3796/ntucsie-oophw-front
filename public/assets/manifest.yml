@@ -1,12 +1,16 @@
 ---
+add-account-small.png: add-account-small-f7cd46694a29ba8e41fadb399300d3c3.png
+add-account-small/index.png: add-account-small-f7cd46694a29ba8e41fadb399300d3c3.png
+add-account.png: add-account-cddc614bb9c2cc8bb9c5bc70b528e641.png
+add-account/index.png: add-account-cddc614bb9c2cc8bb9c5bc70b528e641.png
 ajax-loader.gif: ajax-loader-199b52bcc2cfbf62798c9df4b18f9d40.gif
 ajax-loader/index.gif: ajax-loader-199b52bcc2cfbf62798c9df4b18f9d40.gif
-how-to-login-small.png: how-to-login-small-f7cd46694a29ba8e41fadb399300d3c3.png
-how-to-login-small/index.png: how-to-login-small-f7cd46694a29ba8e41fadb399300d3c3.png
-how-to-login.png: how-to-login-cddc614bb9c2cc8bb9c5bc70b528e641.png
-how-to-login/index.png: how-to-login-cddc614bb9c2cc8bb9c5bc70b528e641.png
 rails.png: rails-a3386665c05a2d82f711a4aaa72d247c.png
 rails/index.png: rails-a3386665c05a2d82f711a4aaa72d247c.png
+switch-account-small.png: switch-account-small-ad051b661c9ee836d275a8849630348c.png
+switch-account-small/index.png: switch-account-small-ad051b661c9ee836d275a8849630348c.png
+switch-account.png: switch-account-cc96e46f31ca958ada043ee03b1e8f89.png
+switch-account/index.png: switch-account-cc96e46f31ca958ada043ee03b1e8f89.png
 application.js: application-6dbfe34f03b56c80815421705969854d.js
 application/index.js: application-6dbfe34f03b56c80815421705969854d.js
 application.css: application-eaffd1de95583ec8872ed54931518ead.css
