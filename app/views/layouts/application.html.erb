@@ -13,6 +13,17 @@
     <h1>Object Oriented Software Design (2013 Spring)</h1>
     <h2><%= yield :header_subtitle %><h2>
   </header>
+  <div id="alert-old-browser" class="alert alert-warning">
+    <button class="close" data-dismiss="alert">x</button>
+    <div>You are using a browser that is not fully supported by our website. Please upgrade your browser or try other browsers such as <a href="http://www.google.com/chrome" target="_blank">Chrome</a> or <a href="http://www.mozilla.org/firefox" target="_blank">FireFox</a>.</div>
+  </div>
+  <script type="text/javascript">
+    $(function() {
+      if($.support.ajax && $.support.boxModel && $.support.cssFloat && $.support.opacity && $.support.tbody) {
+        $('#alert-old-browser').hide();
+      }
+    });
+  </script>
 <%= yield %>
   <footer>
     <small class="muted">
