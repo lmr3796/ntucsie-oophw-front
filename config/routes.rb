@@ -4,6 +4,8 @@ NtucsieOopHw::Application.routes.draw do
   get 'path/git'
   get 'path/help'
 
+  get 'admin/index'
+
   #OAuth
   get   '/login', :to => 'sessions#new', :as => :login
   match '/auth/:provider/callback', :to => 'sessions#create'
@@ -16,6 +18,7 @@ NtucsieOopHw::Application.routes.draw do
   #   match 'products/:id' => 'catalog#view'
   # Keep in mind you can assign values other than :controller and :action
 
+  match 'admin/' => 'admin#index'
   match 'help' => 'path#help'
 
   # Sample of named route:
