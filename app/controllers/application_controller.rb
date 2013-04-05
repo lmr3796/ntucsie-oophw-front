@@ -5,7 +5,9 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   def set_variables
-    @homework_number = 3
+    @homework_number     = 3
+    @homework_deadline   = Time.new(2013, 4, 11, 12, 00)
+
     @admins = [
       'htlin@csie.ntu.edu.tw',
       'r01922014@csie.ntu.edu.tw',
