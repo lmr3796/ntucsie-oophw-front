@@ -5,7 +5,7 @@
   </section>
   <section>
     <h4>Submission Status for Homework <%= @homework_number %></h4>
-    <table class="table table-condensed table-striped">
+    <table class="table table-condensed table-hover">
       <thead>
         <tr>
           <th>id</th>
@@ -16,7 +16,11 @@
       </thead>
       <tbody>
         <% @students.each do |student| %>
+        <% if student[:submissions].first[:repo].include? 'github' %>
+        <tr class="warning">
+        <% else %>
         <tr>
+        <% end %>
           <td><%= student[:id] %></td>
           <td><%= student[:submissions].first[:repo] %></td>
           <td><%= student[:submissions].first[:time] %></td>
