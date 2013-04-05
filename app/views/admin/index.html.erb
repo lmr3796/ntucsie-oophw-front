@@ -1,2 +1,29 @@
-<h1>Hello World</h1>
-<%= @dest %>
+<% content_for :header_subtitle do %>Homework Submission Status<% end %>
+<section>
+  <section>
+    <p>Hi, <span class="text-info"><%= @email %></span>. This is the administration page.</p>
+  </section>
+  <section>
+    <h4>Submission Status for Homework <%= @homework_number %></h4>
+    <table class="table table-condensed table-striped">
+      <thead>
+        <tr>
+          <th>id</th>
+          <th>Git Repo</th>
+          <th>Time</th>
+          <th># Different Repos</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @students.each do |student| %>
+        <tr>
+          <td><%= student[:id] %></td>
+          <td><%= student[:submissions].first[:repo] %></td>
+          <td><%= student[:submissions].first[:time] %></td>
+          <td><%= student[:submissions].group_by { |x| x[:repo] }.length %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </section>
+</section>

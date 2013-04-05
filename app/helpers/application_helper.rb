@@ -6,4 +6,8 @@ module ApplicationHelper
 
     "/tmp2/oophw#{number}/#{id}"
   end
+
+  def origin_for(repo)
+    `cd #{repo.working_dir} && git config --get remote.origin.url`
+  end
 end
