@@ -16,7 +16,7 @@
       </thead>
       <tbody>
         <% @students.each do |student| %>
-        <% if student[:submissions].first[:repo].include? 'github' %>
+        <% if not student[:submissions].first[:repo].include? 'bitbucket' %>
         <tr class="warning">
         <% else %>
         <tr>
