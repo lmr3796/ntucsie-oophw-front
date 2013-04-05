@@ -7,13 +7,13 @@ class AdminController < ApplicationController
     if not session[:email]
       cookies[:mycallback] = "#{request.protocol}#{request.host_with_port}#{request.fullpath}"
       redirect_to '/auth/google_oauth2'
-    end
+    else
+      @email = session[:email]
+      @id = @email[0...@email.index('@')]
 
-    @email = session[:email]
-    @id = @email[0...@email.index('@')]
-
-    if not @admins.include? @email
-      redirect_to '/'
+      if not @admins.include? @email
+        redirect_to '/'
+      end
     end
   end
 
