@@ -17,13 +17,13 @@ class WelcomeController < ApplicationController
         end
 
         repo_dir = File.join(dest, f)
-        repo = Grit::Repo.new(repo_dir) rescue NoSuchPathError
+        @repo = Grit::Repo.new(repo_dir) rescue nil
         @submissions.push({
           :version  => n,
-          :repo     => origin_for(repo),
-          :info     => repo.commits.first,
+          :repo     => origin_for(@repo),
+          :info     => @repo.commits.first,
           :time     => File::Stat.new(repo_dir).ctime
-        })
+        }) rescue nil
       end
 
       @submissions.sort! { |x,y| y[:version] <=> x[:version] }

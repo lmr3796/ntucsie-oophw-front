@@ -64,10 +64,12 @@
           <td><%= submission[:version] %></td>
           <td><%= submission[:repo] %></td>
           <td>
-          <% if submission[:info] %>
+          <% if not @repo %>
+            Cloning ...
+          <% elsif submission[:info] %>
             <%= submission[:info].id %>
           <% else %>
-            Cloning ...
+            Empty
           <% end %>
           </td>
           <td><%= submission[:time] %></td>
