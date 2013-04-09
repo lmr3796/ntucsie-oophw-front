@@ -8,6 +8,9 @@ class WelcomeController < ApplicationController
 
       @submissions = []
 
+      # Create directory only on valid IDs
+      return if not /@csie\.ntu\.edu\.tw/ =~ session[:email]
+
       dest = homework_dest_for(@homework_number, @id)
       FileUtils.mkdir_p dest unless File.directory?(dest)
       Dir.foreach(dest) do |f|

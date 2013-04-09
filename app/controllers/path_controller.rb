@@ -1,6 +1,13 @@
 require 'grit'
 
 class PathController < ApplicationController
+  before_filter :check_email
+  def check_email
+    if not /@csie\.ntu\.edu\.tw/ =~ session[:email]
+      render :json => { :message => 'Invalid account, please login with your NTU CSIE account.', :error => ''}, :status => 403
+      return 
+    end
+  end
   def git
     @email = session[:email]
     @id = @email[0...@email.index('@')]
