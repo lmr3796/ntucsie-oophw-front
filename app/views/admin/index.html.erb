@@ -22,7 +22,7 @@
         <tr>
         <% end %>
           <td><%= student[:id] %></td>
-          <td><%= student[:submissions].first[:repo] %></td>
+          <td><a href="http://bitbucket.org/<%= /:(?<target>[^\.]+)\.git/.match(student[:submissions].first[:repo])[:target] %>" target="_blank"><%= student[:submissions].first[:repo] %></a></td>
           <% if student[:submissions].first[:time] > @homework_deadline %>
           <td class="text-error">
           <% else %>
