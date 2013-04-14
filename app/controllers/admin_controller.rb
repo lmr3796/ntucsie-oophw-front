@@ -1,6 +1,8 @@
 require 'grit'
 
 class AdminController < ApplicationController
+  include AdminHelper
+
   before_filter :validate
 
   def validate
