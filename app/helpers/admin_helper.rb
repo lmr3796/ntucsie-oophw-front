@@ -3,7 +3,8 @@ module AdminHelper
     matched = /:(?<target>[^\.]+)\.git/.match(repo)
     if matched != nil
       "http://bitbucket.org/#{matched[:target]}"
+    else
+      '#'
     end
-    ''
   end
 end
