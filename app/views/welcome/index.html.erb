@@ -41,6 +41,7 @@
     <div><strong>Notice:</strong> You must submit the <strong>SSH</strong> clone url for a repository hosting on <a href="http://bitbucket.org/" target="_blank">Bitbucket</a>. Otherwise you will get <strong>no points</strong> for the homework.</div>
   </div>
   <%= form_tag({ :controller => 'path', :action => 'git'}, :method => :get, :id => 'git-submit', :class => 'form-inline') do %>
+    <%= select_tag :hw_id, options_for_select([['hw4', 'hw4']]) %>
     <%= text_field_tag :path, nil, :class=> 'input-xxlarge', :placeholder => 'git@bitbucket.org:ntu-csie-oop/hello-world.git'  %>
     <%= submit_tag 'Submit', :class => 'btn btn-primary' %>
   <% end %>
