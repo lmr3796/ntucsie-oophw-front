@@ -21,8 +21,9 @@ class AdminController < ApplicationController
 
   def index
     @students = []
+    @admin_homework_number=3
 
-    root = homework_dest_for(@homework_number)
+    root = homework_dest_for(@admin_homework_number)
     Dir.foreach(root) do |id|
       if id.start_with? '.'
         next
