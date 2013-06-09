@@ -41,16 +41,20 @@
     <div><strong>Notice:</strong> You must submit the <strong>SSH</strong> clone url for a repository hosting on <a href="http://bitbucket.org/" target="_blank">Bitbucket</a>. Otherwise you will get <strong>no points</strong> for the homework.</div>
   </div>
   <%= form_tag({ :controller => 'path', :action => 'git'}, :method => :get, :id => 'git-submit', :class => 'form-inline') do %>
-    <%= select_tag :hw_id, options_for_select([['hw4', 'hw4']]) %>
+    <%= select_tag :hw_id, options_for_select([['hw5', 'hw5'], ['hw4', 'hw4'], ['hw3', 'hw3'], ['hw2', 'hw2'], ['hw1', 'hw1']]) %>
     <%= text_field_tag :path, nil, :class=> 'input-xxlarge', :placeholder => 'git@bitbucket.org:ntu-csie-oop/hello-world.git'  %>
     <%= submit_tag 'Submit', :class => 'btn btn-primary' %>
   <% end %>
+  <!--
+  <%
+=begin
+    %>
   <section>
     <h4>Submission History</h4>
     <% if @submissions.empty? %>
     <p>No submission history available.</p>
     <% else %>
-    <table class="table table-striped">
+    <table id="submission_history" class="table table-striped">
       <thead>
         <tr>
           <th>#</th>
@@ -80,6 +84,10 @@
     </table>
     <% end %>
   </section>
+  <%
+=end
+    %>
+  -->
   <div id="dialog-loading" class="modal hide fade">
     <div class="modal-body">
       <center>
@@ -118,52 +126,6 @@
   <% end %>
 </section>
 <% if @email %>
-<script type="text/javascript">
-  $(function() {
-    $('#add-account-lightbox').lightbox({ show: false });
-    $('#switch-account-lightbox').lightbox({ show: false });
-    $('#dialog-loading').modal({ backdrop: 'static', show: false });
-    $('#dialog-success')
-      .modal({ show: false })
-      .on('hidden', function() {
-        window.location = window.location;
-      });
-    $('#dialog-failed')
-      .modal({ show: false })
-      .on('hidden', function() {
-        window.location = window.location;
-      });
-    $('#git-submit').submit(function() {
-      $('#dialog-loading').modal('show');
-      $.ajax({
-        url: $(this).attr('action'),
-        data: $(this).serialize()
-      }).done(function(res) {
-        $('#dialog-loading').modal('hide');
-        $('#git-submit :input:text').val('');
-
-        var $dialog = $('#dialog-success');
-        $('.dialog-message', $dialog).text(res.message);
-        $('.dialog-version', $dialog).text(res.version);
-        $('.dialog-git-repo', $dialog).text(res.repo);
-        $('.dialog-commit-details', $dialog).text(
-            'Commit: ' + res.info.id + '\n' +
-            'Author: ' + res.info.author.name + ' <' + res.info.author.email + '>\n' +
-            'Date: ' + res.info.authored_date
-        );
-        $dialog.modal('show');
-      }).fail(function(jqxhr, textStatus, errorThrown) {
-        $('#dialog-loading').modal('hide');
-
-        var $dialog = $('#dialog-failed');
-        var res = JSON.parse(jqxhr.responseText);
-        $('.dialog-message', $dialog).text(res.message);
-        $('.dialog-error', $dialog).text(res.error);
-        $dialog.modal('show');
-      });
-      return false;
-    });
-  });
-</script>
+  <%= javascript_include_tag "welcome" %>
 <% end %>
 <% content_for :footer_links do %>Current Time: <span class="text-info"><%= Time.now %></span>, Submission Guildline: <a href="https://oophw.csie.org/help">https://oophw.csie.org/help</a><br><% end %>

@@ -5,6 +5,7 @@ NtucsieOopHw::Application.routes.draw do
   get 'path/help'
 
   get 'admin/index'
+  get 'history/:hw_id' => 'welcome#history'
 
   #OAuth
   get   '/login', :to => 'sessions#new', :as => :login

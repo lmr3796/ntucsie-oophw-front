@@ -1,10 +1,10 @@
 module ApplicationHelper
   def homework_dest_for(number, id=nil)
     if id == nil
-      "/tmp2/oophw#{number}"
+      "/tmp2/oop#{number}"
     end
 
-    "/tmp2/oophw#{number}/#{id}"
+    "/tmp2/oop#{number}/#{id}"
   end
 
   def origin_for(repo)
