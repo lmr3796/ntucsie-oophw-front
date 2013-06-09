@@ -42,7 +42,7 @@ class WelcomeController < ApplicationController
     end
     @submissions.sort! { |x,y| y[:version] <=> x[:version] }
 
-    render :json => { :status => 'success', :submission => @submissions }
+    render :json => { :status => 'success', :submissions => @submissions }
     return
   end
 end

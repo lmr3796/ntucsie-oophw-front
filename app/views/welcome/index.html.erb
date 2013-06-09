@@ -45,16 +45,10 @@
     <%= text_field_tag :path, nil, :class=> 'input-xxlarge', :placeholder => 'git@bitbucket.org:ntu-csie-oop/hello-world.git'  %>
     <%= submit_tag 'Submit', :class => 'btn btn-primary' %>
   <% end %>
-  <!--
-  <%
-=begin
-    %>
-  <section>
+  <section id="submission_history">
     <h4>Submission History</h4>
-    <% if @submissions.empty? %>
-    <p>No submission history available.</p>
-    <% else %>
-    <table id="submission_history" class="table table-striped">
+    <p id="history_unavailable">No submission history available.</p>
+    <table id="history_table" class="table table-striped">
       <thead>
         <tr>
           <th>#</th>
@@ -63,31 +57,10 @@
           <th>Time</th>
         </tr>
       </thead>
-      <tbody>
-        <% @submissions.each do |submission| %>
-        <tr>
-          <td><%= submission[:version] %></td>
-          <td><%= submission[:repo] %></td>
-          <td>
-          <% if not @repo %>
-            Cloning ...
-          <% elsif submission[:info] %>
-            <%= submission[:info].id %>
-          <% else %>
-            Empty
-          <% end %>
-          </td>
-          <td><%= submission[:time] %></td>
-        </tr>
-        <% end %>
+      <tbody id="history_entries">
       </tbody>
     </table>
-    <% end %>
   </section>
-  <%
-=end
-    %>
-  -->
   <div id="dialog-loading" class="modal hide fade">
     <div class="modal-body">
       <center>
