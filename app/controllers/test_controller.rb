@@ -1,6 +1,7 @@
 class TestController < ApplicationController
   def test
-    s = `ssh -i /home/lmr3796/.ssh/id_rsa r01944027@linux9.csie.org ls`
-    render :text => s
+    key_file = "#{Rails.root}/config/id_rsa"
+    s = `ssh -o StrictHostKeyChecking=no -i #{key_file} oophw@localhost ls`
+    render :text => s 
   end
 end
