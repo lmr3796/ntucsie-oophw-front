@@ -1,6 +1,7 @@
 // Use ajax to refresh table
 function reload_history(hw_id) {
     console.log("Reload");
+    $("#homework_id_hint").text("homework hw_id");
     $.ajax({
         url: "history/" + hw_id,
     }).done(function(res) {
