@@ -1,4 +1,4 @@
 development:
   hostname: 'http://localhost:3000'
 production:
-  hostname: 'http://lmr3796-stcc.herokuapp.com'
+  hostname: 'https://lmr3796-stcc.herokuapp.com'
