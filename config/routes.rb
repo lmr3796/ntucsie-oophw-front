@@ -1,5 +1,5 @@
 NtucsieOopHw::Application.routes.draw do
-  get "test/test"
+  get "test" => 'test#test'
 
   get 'welcome/index'
   
