@@ -15,7 +15,7 @@ class PathController < ApplicationController
     @repo = params[:path].strip
 
     # create directory & get the newest version
-    dest = homework_dest_for(@homework_number, @id)
+    dest = homework_dest_for(params[:hw_id], @id)
     begin
       version = 0
       if File.directory?(dest)
