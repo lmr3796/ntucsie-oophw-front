@@ -1,11 +1,11 @@
 NtucsieOopHw::Application.routes.draw do
   get 'welcome/index'
   
-  get 'path/git'
   get 'path/help'
 
   get 'admin/index'
   get 'history/:hw_id' => 'history#get'
+  get 'submit/git' 
 
   #OAuth
   get   '/login', :to => 'sessions#new', :as => :login

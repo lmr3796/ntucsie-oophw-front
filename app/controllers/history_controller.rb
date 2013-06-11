@@ -1,5 +1,6 @@
 require 'open-uri'
 require 'json'
+
 class HistoryController < ApplicationController
   def get
     @email = session[:email] # Use OAuth to get email and ID
