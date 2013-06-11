@@ -1,0 +1,4 @@
+development:
+  git_server: 'https://lmr3796.csie.org'
+production:
+  git_server: 'https://lmr3796.csie.org'

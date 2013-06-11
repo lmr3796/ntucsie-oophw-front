@@ -1,6 +1,4 @@
 NtucsieOopHw::Application.routes.draw do
-  get "test" => 'test#test'
-
   get 'welcome/index'
   
   get 'path/git'
@@ -21,7 +19,7 @@ NtucsieOopHw::Application.routes.draw do
   #   match 'products/:id' => 'catalog#view'
   # Keep in mind you can assign values other than :controller and :action
 
-  match 'admin/' => 'admin#index'
+  #match 'admin/' => 'admin#index'
   match 'help' => 'path#help'
 
   # Sample of named route:
