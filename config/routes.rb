@@ -1,13 +1,13 @@
 NtucsieOopHw::Application.routes.draw do
   get 'welcome/index'
-  
-  get 'path/help'
-
   get 'admin/index'
-  get 'history/:hw_id' => 'history#get'
-  get 'submit/git' 
 
-  #OAuth
+  # Communication with the backend server
+  get 'history/:hw_id'  => 'backend#history'
+  get 'submit/git'      => 'backend#submit_git'
+  get 'build/:hw_id'    => 'backend#build'
+
+  # OAuth
   get   '/login', :to => 'sessions#new', :as => :login
   match '/auth/:provider/callback', :to => 'sessions#create'
   match '/auth/failure', :to => 'sessions#failure'

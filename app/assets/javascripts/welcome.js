@@ -2,19 +2,18 @@
 function reload_history() {
     var hw_id = $('#hw_id').val();
     // TODO: animation?
-    $("#homework_id_hint").text("homework hw_id");
     $.ajax({
         url: "history/" + hw_id,
     }).done(function(res) {
-        $("#history_table").find("#history_entries").find("tr").remove();
+        $("#history-table").find("#history-entries").find("tr").remove();
         if(res['submissions'] == null || res['submissions'].length == 0){
             // Hide the history table
-            $("#history_unavailable").show();
-            $("#history_table").hide();
+            $("#history-unavailable").show();
+            $("#history-table").hide();
         } else {
             // Show the history table
-            $("#history_unavailable").hide();
-            $("#history_table").show();
+            $("#history-unavailable").hide();
+            $("#history-table").show();
 
             // Generate the table entries
             $.each(res['submissions'], function(i, submission){
@@ -34,12 +33,27 @@ function reload_history() {
                     entry += "<td>" + submission['time'] + "</td>";
                     return entry;
                 };
-                $("#history_entries").append(generate_entry(submission));
+                $("#history-entries").append(generate_entry(submission));
             });
         }
     }).fail(function() {
         console.log("No history get");
     });
+};
+
+function set_clone_message(res){
+    $('#git-submit :input:text').val('');
+
+    $('#dialog-message').text(res.message);
+    $('#submit-version').text(res.version);
+    $('#git-repo').text(res.repo);
+    var commit_detail;
+    commit_detail = (res.info != null) ? (
+            'Commit: ' + res.info.id + '\n' +
+            'Author: ' + res.info.author.name + ' <' + res.info.author.email + '>\n' +
+            'Date: ' + res.info.authored_date
+            ):"Empty repository";
+    $('#commit-details').text(commit_detail);
 };
 $(document).ready(function() {
     $('#add-account-lightbox').lightbox({ show: false });
@@ -50,36 +64,36 @@ $(document).ready(function() {
     $('#git-submit')
     .change(function() {reload_history();})
     .submit(function() {
+        submit_success = true;
         $('#dialog-loading').modal('show');
+        $("#loading-message").text("Cloning...");
+
+        // git clone
         $.ajax({
             url: $(this).attr('action'),
             data: $(this).serialize()
-        }).done(function(res) {
-            $('#dialog-loading').modal('hide');
-            $('#git-submit :input:text').val('');
-
-            var $dialog = $('#dialog-success');
-            $('.dialog-message', $dialog).text(res.message);
-            $('.dialog-version', $dialog).text(res.version);
-            $('.dialog-git-repo', $dialog).text(res.repo);
-            if (res.info != null){
-                $('.dialog-commit-details', $dialog).text(
-                    'Commit: ' + res.info.id + '\n' +
-                    'Author: ' + res.info.author.name + ' <' + res.info.author.email + '>\n' +
-                    'Date: ' + res.info.authored_date
-                    );
-            }else{
-                $('.dialog-commit-details', $dialog).text("Empty repository");
-            }
-            $dialog.modal('show');
-        }).fail(function(jqxhr, textStatus, errorThrown) {
-            $('#dialog-loading').modal('hide');
-
-            var $dialog = $('#dialog-failed');
+        }).done(function(clone_res) {
+            $("#loading-message").text("Building...");
+            set_clone_message(clone_res);
+            // Build after successfully cloned
+            $.ajax({
+                url: "build/hw5",
+                data: { "version": clone_res.version }
+            }).done(function(build_res) {
+                $('#build-details').text("Success.").addClass('text-info').removeClass('text-error');;
+            }).error(function(jqxhr, textStatus, errorThrown) {
+                var res = JSON.parse(jqxhr.responseText);
+                $('#build-details').text(res.message).addClass('text-error').removeClass('text-info');
+            }).complete(function(build_res){
+                $('#dialog-loading').modal('hide');
+                $("#dialog-success").modal('show');
+            });
+        }).error(function(jqxhr, textStatus, errorThrown) {
             var res = JSON.parse(jqxhr.responseText);
-            $('.dialog-message', $dialog).text(res.message);
-            $('.dialog-error', $dialog).text(res.error);
-            $dialog.modal('show');
+            $('#fail-message').text(res.message);
+            $('#fail-error').text(res.error);
+            $('#dialog-loading').modal('hide');
+            $("#dialog-failed").modal('show');
         });
         return false;   // Ajax used so return false to cancel the normal full submit request of form
     });

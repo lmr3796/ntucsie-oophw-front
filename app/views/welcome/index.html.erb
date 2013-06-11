@@ -40,15 +40,15 @@
   <div class="alert alert-info">
     <div><strong>Notice:</strong> You must submit the <strong>SSH</strong> clone url for a repository hosting on <a href="http://bitbucket.org/" target="_blank">Bitbucket</a>. Otherwise you will get <strong>no points</strong> for the homework.</div>
   </div>
-  <%= form_tag({ :controller => 'submit', :action => 'git'}, :method => :get, :id => 'git-submit', :class => 'form-inline') do %>
+  <%= form_tag({ :controller => :backend, :action => :submit_git }, :method => :get, :id => 'git-submit', :class => 'form-inline') do %>
     <%= select_tag :hw_id, options_for_select([['hw5', 'hw5'], ['hw4', 'hw4'], ['hw3', 'hw3'], ['hw2', 'hw2'], ['hw1', 'hw1']]) %>
     <%= text_field_tag :repo_url, nil, :class=> 'input-xxlarge', :placeholder => 'git@bitbucket.org:ntu-csie-oop/hello-world.git'  %>
     <%= submit_tag 'Submit', :class => 'btn btn-primary' %>
   <% end %>
   <section id="submission_history">
     <h4>Submission History</h4>
-    <p id="history_unavailable">No submission history available.</p>
-    <table id="history_table" class="table table-striped">
+    <p id="history-unavailable">No submission history available.</p>
+    <table id="history-table" class="table table-striped">
       <thead>
         <tr>
           <th>#</th>
@@ -57,7 +57,7 @@
           <th>Time</th>
         </tr>
       </thead>
-      <tbody id="history_entries">
+      <tbody id="history-entries">
       </tbody>
     </table>
   </section>
@@ -65,20 +65,22 @@
     <div class="modal-body">
       <center>
         <%= image_tag 'ajax-loader.gif' %>
-        <span>Please wait ...</span>
+        <span id="loading-message"></span>
       </center>
     </div>
   </div>
   <div id="dialog-success" class="modal hide fade">
     <div class="modal-header">
-      <h3><span class="dialog-message"></span></h3>
+      <h3><span id="#success-message"></span></h3>
     </div>
     <div class="modal-body">
-      <p>This is your <span class="dialog-version"></span> submission for homework <%= @homework_number %>.</p>
+      <p>This is your No. <span id="submit-version"></span> submission for homework <%= @homework_number %>.</p>
       <p>Git repository submitted:</p>
-      <pre class="dialog-git-repo text-info"></pre>
+      <pre id="git-repo" class="text-info"></pre>
       <p>Latest commit:</p>
-      <pre class="dialog-commit-details text-info"></pre>
+      <pre id="commit-details" class="text-info"></pre>
+      <p>Auto build status:</p>
+      <pre id="build-details" class="text-info"></pre>
     </div>
     <div class="modal-footer">
       <button class="btn" data-dismiss="modal">Close</button>
@@ -86,11 +88,11 @@
   </div>
   <div id="dialog-failed" class="modal hide fade">
     <div class="modal-header">
-      <h3><span class="dialog-message"></span></h3>
+      <h3><span id="fail-message"></span></h3>
     </div>
     <div class="modal-body">
       <p>Complaints from server:</p>
-      <pre class="dialog-error text-error"></pre>
+      <pre id="fail-error" class="text-error"></pre>
     </div>
     <div class="modal-footer">
       <button class="btn" data-dismiss="modal">Close</button>
