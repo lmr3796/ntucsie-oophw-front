@@ -32,6 +32,8 @@ function reload_history(no_animation) {
     }).done(function(res) {
         $("#history-table").find("#history-entries").find("tr").remove();
         var students = res['students'];
+        deadline = Date.parse(res['deadline']);
+        console.log(deadline);
         if(students == null || students.length == 0){
             // Hide the history table
             $("#history-unavailable").show();
@@ -45,11 +47,14 @@ function reload_history(no_animation) {
             $.each(students, function(i, student){
                 var entry = $('<tr>')
                 var latest = student['submissions'][0];
-                entry.append($('<td>').text(student['id']));
-                entry.append($('<td>').append($('<a>').attr('href', latest['repo']).text(latest['repo'])));
-                entry.append($('<td>').text(latest['time']));
-                entry.append($('<td>').text(student['submissions'].length));
-                $("#history-entries").append(entry);
+                var student_id = $('<td>').attr('id', 'student-id').text(student['id']);
+                var repo_url = $('<td>').attr('id', 'repo-url').append($('<a>').attr('href', latest['repo']).text(latest['repo']));
+                var submit_time = $('<td>').attr('id', 'submit-time').text(latest['time']);
+                var repo_count = $('<td>').attr('id', 'repo-count').text(student['submissions'].length);
+                console.log(Date.parse(latest['time']));
+                if(Date.parse(latest['time']) > deadline) submit_time.attr('class', 'text-error');
+                if(student['submissions'].length > 1) repo_count.attr('class', 'text-error');
+                $("#history-entries").append(entry.append(student_id).append(repo_url).append(submit_time).append(repo_count));
             });
         }
     }).fail(function() {
