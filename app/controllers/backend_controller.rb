@@ -19,6 +19,12 @@ class BackendController < ApplicationController
   def submit_git
     @repo_url = params[:repo_url].strip
     uri = "#{GIT_SERVER}/submit/#{@hw_id}/#{@student_id}?url=#{@repo_url}"
+    puts uri
+    invoke_backend(uri)
+  end
+
+  def check_clone
+    uri = "#{GIT_SERVER}/status/clone/#{@student_id}/#{params[:job_id]}"
     invoke_backend(uri)
   end
 

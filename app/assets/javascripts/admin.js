@@ -33,7 +33,6 @@ function reload_history(no_animation) {
         $("#history-table").find("#history-entries").find("tr").remove();
         var students = res['students'];
         deadline = Date.parse(res['deadline']);
-        console.log(deadline);
         if(students == null || students.length == 0){
             // Hide the history table
             $("#history-unavailable").show();
@@ -51,7 +50,6 @@ function reload_history(no_animation) {
                 var repo_url = $('<td>').attr('id', 'repo-url').append($('<a>').attr('href', latest['repo']).text(latest['repo']));
                 var submit_time = $('<td>').attr('id', 'submit-time').text(latest['time']);
                 var repo_count = $('<td>').attr('id', 'repo-count').text(student['submissions'].length);
-                console.log(Date.parse(latest['time']));
                 if(Date.parse(latest['time']) > deadline) submit_time.attr('class', 'text-error');
                 if(student['submissions'].length > 1) repo_count.attr('class', 'text-error');
                 $("#history-entries").append(entry.append(student_id).append(repo_url).append(submit_time).append(repo_count));

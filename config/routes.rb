@@ -6,6 +6,8 @@ NtucsieOopHw::Application.routes.draw do
   get 'history/:hw_id'  => 'backend#history'
   get 'submit/git'      => 'backend#submit_git'
   get 'build/:hw_id'    => 'backend#build'
+  get 'status/clone/:job_id' => 'backend#check_clone'
+  get 'status/build/:job_id' => 'backend#check_build'
 
   get 'admin' => 'admin#index'
   get 'admin/history/:hw_id'    => 'backend#admin_history'

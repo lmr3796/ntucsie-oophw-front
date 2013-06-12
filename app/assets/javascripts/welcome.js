@@ -82,8 +82,35 @@ function set_clone_message(res){
             ):"Empty repository";
     $('#commit-details').text(commit_detail);
 };
+function check_clone_status(id){
+    $.ajax({
+        url:'status/clone/' + id ,
+        statusCode: {403:function() {check_clone_status(id)}}
+    }).done(function(clone_res){
+        set_clone_message(clone_res);
+        console.log('clone good')
+        build();
+    });
+}
+
+function build(){
+    $("#loading-message").text("Building...");
+    // Build after successfully cloned
+    $.ajax({
+        url: "build/hw5",
+        data: { "version": clone_res.version },
+        timeout: 10000,
+    }).done(function(build_res) {
+        $('#build-details').text("Success.").addClass('text-info').removeClass('text-error');;
+    }).error(function(jqxhr, textStatus, errorThrown) {
+        var res = JSON.parse(jqxhr.responseText);
+        $('#build-details').text(res.message).addClass('text-error').removeClass('text-info');
+    }).complete(function(build_res){
+        $('#dialog-loading').modal('hide');
+        $("#dialog-success").modal('show');
+    });
+}
 $(document).ready(function() {
-    polling_timer = null;
     reload_history(true);
     $('#add-account-lightbox').lightbox({ show: false });
     $('#switch-account-lightbox').lightbox({ show: false });
@@ -92,40 +119,21 @@ $(document).ready(function() {
     $('#dialog-failed').modal({ show: false }).on('hidden', function() {reload_history()});
     $('#hw_id').change(function() {reload_history();})
     $('#git-submit').submit(function() {
-        submit_success = true;
         $('#dialog-loading').modal('show');
         $("#loading-message").text("Cloning...");
-        // To extend connection
-        polling_timer = setInterval(function(){ $.get('/null')}, 5000);
-
         // git clone
         $.ajax({
             url: $(this).attr('action'),
-            data: $(this).serialize()
-        }).done(function(clone_res) {
-            $("#loading-message").text("Building...");
-            set_clone_message(clone_res);
-            // Build after successfully cloned
-            $.ajax({
-                url: "build/hw5",
-                data: { "version": clone_res.version }
-            }).done(function(build_res) {
-                $('#build-details').text("Success.").addClass('text-info').removeClass('text-error');;
-            }).error(function(jqxhr, textStatus, errorThrown) {
-                var res = JSON.parse(jqxhr.responseText);
-                $('#build-details').text(res.message).addClass('text-error').removeClass('text-info');
-            }).complete(function(build_res){
-                $('#dialog-loading').modal('hide');
-                $("#dialog-success").modal('show');
-                clearInterval(polling_timer);
-            });
+            data: $(this).serialize(),
+            timeout: 10000,
+        }).done(function(res) {
+            check_clone_status(res.id);
         }).error(function(jqxhr, textStatus, errorThrown) {
             var res = JSON.parse(jqxhr.responseText);
             $('#fail-message').text(res.message);
             $('#fail-error').text(res.error);
             $('#dialog-loading').modal('hide');
             $("#dialog-failed").modal('show');
-            clearInterval(polling_timer);
         });
         return false;   // Ajax used so return false to cancel the normal full submit request of form
     });
