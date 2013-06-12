@@ -89,7 +89,7 @@ $(document).ready(function() {
     $('#dialog-loading').modal({ backdrop: 'static', show: false });
     $('#dialog-success').modal({ show: false }).on('hidden', function() {reload_history()});
     $('#dialog-failed').modal({ show: false }).on('hidden', function() {reload_history()});
-    $('#hw_id').change(function() {reload_history();})
+    $('#hw_id').change(function(e) {reload_history(); e.currentTarget.blur();})
     $('#git-submit').submit(function() {
         submit_success = true;
         $('#dialog-loading').modal('show');

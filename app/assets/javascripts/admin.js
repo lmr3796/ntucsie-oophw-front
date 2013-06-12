@@ -66,6 +66,6 @@ function reload_history(no_animation) {
 };
 
 $(document).ready(function() {
-    $('#hw_id').change(function() {reload_history();})
+    $('#hw_id').change(function(e) {reload_history();e.currentTarget.blur();})
     reload_history(true);
 });
