@@ -20,46 +20,6 @@ class AdminController < ApplicationController
   end
 
   def index
-    @students = []
-    @homework_number    = 3
-    @homework_deadline  = Time.new(2013, 4, 11, 12, 00)
-
-    root = homework_dest_for(@homework_number)
-    Dir.foreach(root) do |id|
-      if id.start_with? '.'
-        next
-      end
-
-      submissions = []
-
-      dest = File.join(root, id)
-      Dir.foreach(dest) do |f|
-        n = f.to_i
-        if n.to_s != f
-          next
-        end
-
-        repo_dir = File.join(dest, f)
-        repo = Grit::Repo.new(repo_dir) rescue NoSuchPathError
-        submissions.push({
-          :version  => n,
-          :repo     => origin_for(repo),
-          :info     => repo.commits.first,
-          :time     => File::Stat.new(repo_dir).ctime
-        })
-      end
-
-      if submissions.length == 0
-        next
-      end
-
-      submissions.sort! { |x,y| y[:version] <=> x[:version] }
-      @students.push({
-        :id           => id,
-        :submissions  => submissions
-      })
-
-      @students.sort! { |x,y| x[:id] <=> y[:id] }
-    end
+    
   end
 end

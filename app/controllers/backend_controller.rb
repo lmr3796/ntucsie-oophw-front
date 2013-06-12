@@ -18,7 +18,6 @@ class BackendController < ApplicationController
 
   def submit_git
     @repo_url = params[:repo_url].strip
-
     uri = "#{GIT_SERVER}/submit/#{@hw_id}/#{@student_id}?url=#{@repo_url}"
     invoke_backend(uri)
   end
@@ -30,6 +29,11 @@ class BackendController < ApplicationController
 
   def build
     uri = "#{GIT_SERVER}/build/#{@hw_id}/#{@student_id}/#{params[:version]}"
+    invoke_backend(uri)
+  end
+
+  def admin_history
+    uri = "#{GIT_SERVER}/history/#{@hw_id}"
     invoke_backend(uri)
   end
 

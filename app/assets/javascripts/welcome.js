@@ -83,14 +83,14 @@ function set_clone_message(res){
     $('#commit-details').text(commit_detail);
 };
 $(document).ready(function() {
+    reload_history(true);
     $('#add-account-lightbox').lightbox({ show: false });
     $('#switch-account-lightbox').lightbox({ show: false });
     $('#dialog-loading').modal({ backdrop: 'static', show: false });
     $('#dialog-success').modal({ show: false }).on('hidden', function() {reload_history()});
     $('#dialog-failed').modal({ show: false }).on('hidden', function() {reload_history()});
-    $('#git-submit')
-    .change(function() {reload_history();})
-    .submit(function() {
+    $('#hw_id').change(function() {reload_history();})
+    $('#git-submit').submit(function() {
         submit_success = true;
         $('#dialog-loading').modal('show');
         $("#loading-message").text("Cloning...");
@@ -124,6 +124,5 @@ $(document).ready(function() {
         });
         return false;   // Ajax used so return false to cancel the normal full submit request of form
     });
-    reload_history(true);
 });
 

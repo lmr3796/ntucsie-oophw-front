@@ -4,8 +4,14 @@
     <p>Hi, <span class="text-info"><%= @email %></span>. This is the administration page.</p>
   </section>
   <section>
-    <h4>Submission Status for Homework <%= @homework_number %></h4>
-    <table class="table table-condensed table-hover">
+    <h4>Submission Status for  
+      <%= select_tag :hw_id, options_for_select([['hw5', 'hw5'], ['hw4', 'hw4'], ['hw3', 'hw3'], ['hw2', 'hw2'], ['hw1', 'hw1']]) %>
+    </h4>
+    <div id="history-loading" style="width:100%; height:100%; position:absolute; background: rgba(255,255,255,0.7)">
+      <div id="history-loading-spinner-holder", style="left:50%;"></div>
+    </div>
+    <p id="history-unavailable" style="display: none">No submission history available.</p>
+    <table id="history-table" class="table table-condensed table-hover">
       <thead>
         <tr>
           <th>id</th>
@@ -14,26 +20,10 @@
           <th># Different Repos</th>
         </tr>
       </thead>
-      <tbody>
-        <% @students.each do |student| %>
-        <% if not student[:submissions].first[:repo].include? 'bitbucket' %>
-        <tr class="warning">
-        <% else %>
-        <tr>
-        <% end %>
-          <td><%= student[:id] %></td>
-          <td><a href="<%= get_repo_url student[:submissions].first[:repo] %>" target="_blank"><%= student[:submissions].first[:repo] %></a></td>
-          <% if student[:submissions].first[:time] > @homework_deadline %>
-          <td class="text-error">
-          <% else %>
-          <td>
-          <% end %>
-            <%= student[:submissions].first[:time] %>
-          </td>
-          <td><%= student[:submissions].group_by { |x| x[:repo] }.length %></td>
-        </tr>
-        <% end %>
+      <tbody id="history-entries">
       </tbody>
     </table>
   </section>
 </section>
+<%= javascript_include_tag "spin" %>
+<%= javascript_include_tag "admin" %>
