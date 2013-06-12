@@ -1,12 +1,12 @@
 <% content_for :header_subtitle do %>Homework Submission System<% end %>
 <section>
   <% if not @email or not /@csie\.ntu\.edu\.tw/ =~ @email %>
-  <section>
+ <section>
     <div id="alert-submission" class="alert alert-info">
       <div><strong>Notice:</strong> You <strong>must</strong> submit your homework via the system if you are taking this course. If you are auditing this course, you can send your <strong>git repository url</strong> directly to TAs via email if you do not have an NTU-CSIE account.</div>
     </div>
     <% if @email %>
-    <p>You are logged-in with <span class="text-info"><%= @email %></span>.</p>
+ <p>You are logged-in with <span class="text-info"><%= @email %></span>.</p>
     <% end %>
     <p>Please <a href="/auth/google_oauth2">login</a> with your NTU-CSIE account. If you do not have an NTU-CSIE account, you can <a href="http://wslab.csie.ntu.edu.tw/22-2/" target="_blank">apply one here</a>.</p>
   </section>
@@ -33,7 +33,7 @@
       </figure>
   </section>
   <% else %>
-  <section>
+ <section>
     <p>Hi, <span class="text-info"><%= @email %></span>.</p>
     <p>Please submit your git repository.</p>
   </section>
@@ -41,25 +41,30 @@
     <div><strong>Notice:</strong> You must submit the <strong>SSH</strong> clone url for a repository hosting on <a href="http://bitbucket.org/" target="_blank">Bitbucket</a>. Otherwise you will get <strong>no points</strong> for the homework.</div>
   </div>
   <%= form_tag({ :controller => :backend, :action => :submit_git }, :method => :get, :id => 'git-submit', :class => 'form-inline') do %>
-    <%= select_tag :hw_id, options_for_select([['hw5', 'hw5'], ['hw4', 'hw4'], ['hw3', 'hw3'], ['hw2', 'hw2'], ['hw1', 'hw1']]) %>
+ <%= select_tag :hw_id, options_for_select([['hw5', 'hw5'], ['hw4', 'hw4'], ['hw3', 'hw3'], ['hw2', 'hw2'], ['hw1', 'hw1']]) %>
     <%= text_field_tag :repo_url, nil, :class=> 'input-xxlarge', :placeholder => 'git@bitbucket.org:ntu-csie-oop/hello-world.git'  %>
     <%= submit_tag 'Submit', :class => 'btn btn-primary' %>
   <% end %>
   <section id="submission_history">
     <h4>Submission History</h4>
-    <p id="history-unavailable">No submission history available.</p>
-    <table id="history-table" class="table table-striped">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Git Repo</th>
-          <th>Commit</th>
-          <th>Time</th>
-        </tr>
-      </thead>
-      <tbody id="history-entries">
-      </tbody>
-    </table>
+    <div id="history-table-holder" style="position:relative;">
+      <div id="history-loading" style="width:100%; height:100%; position:absolute; background: rgba(255,255,255,0.7)">
+        <div id="history-loading-spinner-holder", style="left:50%;"></div>
+      </div>
+      <p id="history-unavailable" style="display: none">No submission history available.</p>
+      <table id="history-table" class="table table-striped">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Git Repo</th>
+            <th>Commit</th>
+            <th>Time</th>
+          </tr>
+        </thead>
+        <tbody id="history-entries">
+        </tbody>
+      </table>
+    </div>
   </section>
   <div id="dialog-loading" class="modal hide fade">
     <div class="modal-body">
@@ -98,9 +103,10 @@
       <button class="btn" data-dismiss="modal">Close</button>
     </div>
   </div>
-  <% end %>
+<% end %>
 </section>
 <% if @email %>
+  <%= javascript_include_tag "spin" %>
   <%= javascript_include_tag "welcome" %>
 <% end %>
 <% content_for :footer_links do %>Current Time: <span class="text-info"><%= Time.now %></span>, Submission Guildline: <a href="https://oophw.csie.org/help">https://oophw.csie.org/help</a><br><% end %>
