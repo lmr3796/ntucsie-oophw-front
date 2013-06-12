@@ -83,6 +83,7 @@ function set_clone_message(res){
     $('#commit-details').text(commit_detail);
 };
 $(document).ready(function() {
+    polling_timer = null;
     reload_history(true);
     $('#add-account-lightbox').lightbox({ show: false });
     $('#switch-account-lightbox').lightbox({ show: false });
@@ -94,6 +95,8 @@ $(document).ready(function() {
         submit_success = true;
         $('#dialog-loading').modal('show');
         $("#loading-message").text("Cloning...");
+        // To extend connection
+        polling_timer = setInterval(function(){ $.get('/null')}, 5000);
 
         // git clone
         $.ajax({
@@ -114,6 +117,7 @@ $(document).ready(function() {
             }).complete(function(build_res){
                 $('#dialog-loading').modal('hide');
                 $("#dialog-success").modal('show');
+                clearInterval(polling_timer);
             });
         }).error(function(jqxhr, textStatus, errorThrown) {
             var res = JSON.parse(jqxhr.responseText);
@@ -121,6 +125,7 @@ $(document).ready(function() {
             $('#fail-error').text(res.error);
             $('#dialog-loading').modal('hide');
             $("#dialog-failed").modal('show');
+            clearInterval(polling_timer);
         });
         return false;   // Ajax used so return false to cancel the normal full submit request of form
     });

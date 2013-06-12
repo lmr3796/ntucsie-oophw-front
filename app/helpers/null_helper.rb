@@ -1,0 +1,2 @@
+module NullHelper
+end

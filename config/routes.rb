@@ -1,5 +1,6 @@
 NtucsieOopHw::Application.routes.draw do
   get 'welcome/index'
+  get 'null'  => 'null#null'
 
   # Communication with the backend server
   get 'history/:hw_id'  => 'backend#history'
